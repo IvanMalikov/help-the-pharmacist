@@ -4,7 +4,7 @@
         <div class="sidebar">
             <div class="sidebar-buttons">
                 <router-link to="/home">
-                    <button class="home">
+                    <button @click="$store.commit('retry')" class="home">
 
                     </button>
                 </router-link>
@@ -41,7 +41,6 @@
         </div>
 
         <div class="choice">
-
             <component
                 v-touch:swipe.left="onLeftSwipe"
                 v-touch:swipe.right="onRightSwipe"
@@ -51,9 +50,9 @@
             
 
             <div class="choice-buttons">
-                <button class="choice-button violet" @click="$store.commit('addSad')">Препарат 1</button>
-                <button class="choice-button blue" @click="$store.commit('addHappy')">Препарат 2</button>
-                <button class="choice-button yellow" @click="$store.commit('addHeart')">Препарат 3</button>
+                <button class="choice-button violet" @click="onFirstDrug">Препарат 1</button>
+                <button class="choice-button blue" @click="onSecondDrug">Препарат 2</button>
+                <button class="choice-button yellow" @click="onThirdDrug">Препарат 3</button>
             </div>
         </div>
 
@@ -86,15 +85,36 @@ export default {
     methods: {
         onLeftSwipe() {
             this.$store.commit('addSad')
+            this.$store.dispatch('addClientCounterAsync')
+            this.$store.commit('swipeLeft')
         },
 
         onRightSwipe() {
             this.$store.commit('addHeart')
+            this.$store.commit('swipeRight')
+            this.$store.dispatch('addClientCounterAsync')
         },
 
         onTopSwipe() {
             this.$store.commit('addHappy')
+            this.$store.commit('swipeTop')
+            this.$store.dispatch('addClientCounterAsync')
         },
+
+        onFirstDrug() {
+            this.$store.commit('addSad')
+            this.$store.dispatch('addClientCounterAsync')
+        },
+
+        onSecondDrug() {
+            this.$store.commit('addHappy')
+            this.$store.dispatch('addClientCounterAsync')
+        },
+
+        onThirdDrug() {
+            this.$store.commit('addHeart')
+            this.$store.dispatch('addClientCounterAsync')
+        }
     },
 
     components: {
@@ -401,6 +421,7 @@ export default {
             height: 90px;
             margin-bottom: 10px;
         }
+
     }
 
     

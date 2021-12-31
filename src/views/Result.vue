@@ -4,7 +4,7 @@
     <div class="result">
 
         <div class="home-btn">
-            <router-link to="/home"> <button class="home"></button> </router-link>
+            <router-link to="/home"> <button @click="$store.commit('retry')" class="home"></button> </router-link>
         </div>
 
         <div class="result-info">
